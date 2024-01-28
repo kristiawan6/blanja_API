@@ -30,7 +30,10 @@ func Data_products(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal konversi ke JSON", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 		w.Header().Set("Content-Type", "application/json")
 		return
 	} else if r.Method == "POST" {
@@ -67,7 +70,10 @@ func Data_products(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal konversi ke JSON", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 	} else {
 		http.Error(w, "Method tidak Diizinkan", http.StatusMethodNotAllowed)
 	}
@@ -84,7 +90,10 @@ func Data_product(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal Konversi Json", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 		w.Header().Set("Content-Type", "application/json")
 		return
 	} else if r.Method == "PUT" {
@@ -112,7 +121,10 @@ func Data_product(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal Konversi Json", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 	} else if r.Method == "DELETE" {
 		models.DeletesProduct(id)
 		msg := map[string]string{
@@ -123,7 +135,10 @@ func Data_product(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal Konversi Json", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 	} else {
 		http.Error(w, "Method tidak diizinkan", http.StatusMethodNotAllowed)
 	}

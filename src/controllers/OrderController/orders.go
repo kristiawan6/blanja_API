@@ -17,7 +17,10 @@ func Data_orders(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal Konversi Json", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 		w.Header().Set("Content-Type", "application/json")
 		return
 	} else if r.Method == "POST" {
@@ -46,7 +49,10 @@ func Data_orders(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal Konversi Ke Json", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 	} else {
 		http.Error(w, "Method tidak diizinkan", http.StatusMethodNotAllowed)
 	}
@@ -62,7 +68,10 @@ func Data_order(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			http.Error(w, "Gagal Konversi Ke Json", http.StatusInternalServerError)
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 		w.Header().Set("Content-Type", "application/json")
 		return
 	} else if r.Method == "PUT" {
@@ -90,7 +99,10 @@ func Data_order(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal Konversi Json", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 	} else if r.Method == "DELETE" {
 		models.DeleteOrder(id)
 		msg := map[string]string{
@@ -101,7 +113,10 @@ func Data_order(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal Konversi Json", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 	} else {
 		http.Error(w, "Method tidak diizinkan", http.StatusMethodNotAllowed)
 	}

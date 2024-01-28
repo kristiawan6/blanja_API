@@ -43,7 +43,10 @@ func SellerRegister(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal Konversi Ke Json", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 	} else {
 		http.Error(w, "Method tidak diizinkan", http.StatusMethodNotAllowed)
 	}
@@ -81,7 +84,10 @@ func CustomerRegister(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal Konversi Ke Json", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 	} else {
 		http.Error(w, "Method tidak diizinkan", http.StatusMethodNotAllowed)
 	}
@@ -115,7 +121,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			"Message": "HI," + input.Name + " as a " + input.Role,
 		}
 		var result, _ = json.Marshal(item)
-		w.Write(result)
+			if _, err := w.Write(result); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 		return
 	} else {
 		http.Error(w, "Method tidak diizinkan", http.StatusMethodNotAllowed)
@@ -131,7 +140,10 @@ func Data_users(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal Konversi Json", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 		w.Header().Set("Content-Type", "application/json")
 		return
 	} else {
@@ -149,7 +161,10 @@ func Data_user(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			http.Error(w, "Gagal Konversi Ke Json", http.StatusInternalServerError)
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 		w.Header().Set("Content-Type", "application/json")
 		return
 	} else if r.Method == "DELETE" {
@@ -162,7 +177,10 @@ func Data_user(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal Konversi Json", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 	} else {
 		http.Error(w, "Method tidak diizinkan", http.StatusMethodNotAllowed)
 	}
@@ -196,7 +214,10 @@ func Update_seller(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal Konversi Json", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 	} else {
 		http.Error(w, "Method tidak diizinkan", http.StatusMethodNotAllowed)
 	}
@@ -228,7 +249,10 @@ func Update_customer(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Gagal Konversi Json", http.StatusInternalServerError)
 			return
 		}
-		w.Write(res)
+			if _, err := w.Write(res); err != nil {
+			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+			return
+		}
 	} else {
 		http.Error(w, "Method tidak diizinkan", http.StatusMethodNotAllowed)
 	}
