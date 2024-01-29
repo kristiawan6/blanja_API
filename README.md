@@ -11,6 +11,7 @@ This is a Restful API repository for Blanja. This Restful API is built using Gol
 
 ### Technology Used
 
+```bash
 [Golang]: https://go.dev/
 [Helmet]: https://github.com/goddtriffin/helmet
 [AIR]: https://github.com/cosmtrek/air
@@ -19,7 +20,7 @@ This is a Restful API repository for Blanja. This Restful API is built using Gol
 [gotenv]: github.com/subosito/gotenv
 [bcrypt]: https://www.golang.org/x/crypto/bcrypt
 [PostgreSQL]: https://www.postgresql.org/
-
+```
 ### ERD & Flowchart
 
 ![erd](/src/assets/erd.jpg)
