@@ -11,11 +11,17 @@ import (
 )
 
 func main() {
-	gotenv.Load()
+	if err := gotenv.Load(); err != nil {
+		fmt.Println("Error loading environment variables:", err)
+		return
+	}
 	config.InitDB()
 	helper.Migration()
 	defer config.DB.Close()
 	routes.Router()
 	fmt.Print("Server running at http://localhost:8080")
-	http.ListenAndServe(":8080", nil)
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		fmt.Println("Error starting server:", err)
+		return
+	}
 }

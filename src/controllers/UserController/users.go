@@ -94,42 +94,47 @@ func CustomerRegister(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	middleware.GetCleanedInput(r)
-	helper.EnableCors(w)
-	if r.Method == "POST" {
-		var input models.User
-		err := json.NewDecoder(r.Body).Decode(&input)
-		if err != nil {
-			w.WriteHeader(http.StatusBadRequest)
-			fmt.Fprintf(w, "Invalid request body")
-			return
-		}
-		ValidateEmail := models.FindEmail(&input)
-		if len(ValidateEmail) == 0 {
-			fmt.Fprintf(w, "Email not Found")
-			return
-		}
-		var passwordSecond string
-		for _, user := range ValidateEmail {
-			passwordSecond = user.Password
-		}
-		if err := bcrypt.CompareHashAndPassword([]byte(passwordSecond), []byte(input.Password)); err != nil {
-			fmt.Fprintf(w, "Password not Found")
-			return
-		}
-		item := map[string]string{
-			"Message": "HI," + input.Name + " as a " + input.Role,
-		}
-		var result, _ = json.Marshal(item)
-			if _, err := w.Write(result); err != nil {
-			http.Error(w, "Failed to write response", http.StatusInternalServerError)
-			return
-		}
-		return
-	} else {
-		http.Error(w, "Method tidak diizinkan", http.StatusMethodNotAllowed)
-	}
+    middleware.GetCleanedInput(r)
+    helper.EnableCors(w)
+
+    if r.Method == "POST" {
+        var input models.User
+        err := json.NewDecoder(r.Body).Decode(&input)
+        if err != nil {
+            w.WriteHeader(http.StatusBadRequest)
+            fmt.Fprintf(w, "Invalid request body")
+            return
+        }
+
+        // Find user by email
+        users := models.FindEmail(&input)
+        if len(users) == 0 {
+            fmt.Fprintf(w, "Email not Found")
+            return
+        }
+
+        user := users[0]
+
+		if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Password)); err != nil {
+            fmt.Fprintf(w, "Password not Found")
+            return
+        }
+
+        item := map[string]string{
+            "Message": "HI, " + user.Name + " as a " + user.Role,
+        }
+        result, _ := json.Marshal(item)
+
+        if _, err := w.Write(result); err != nil {
+            http.Error(w, "Failed to write response", http.StatusInternalServerError)
+            return
+        }
+        return
+    } else {
+        http.Error(w, "Method tidak diizinkan", http.StatusMethodNotAllowed)
+    }
 }
+
 
 func Data_users(w http.ResponseWriter, r *http.Request) {
 	middleware.GetCleanedInput(r)

@@ -12,37 +12,24 @@ import (
 	"net/http"
 
 	"github.com/goddtriffin/helmet"
-	"github.com/subosito/gotenv"
+
 )
 
 func Router() {
-	if err := gotenv.Load(); err != nil {
-		fmt.Println("Error loading environment variables:", err)
-		return
-	}
-
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Nothing Here, Try Another Page")
 	})
 
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		fmt.Println("Error starting server:", err)
-		return
-	}
 	//Routes User
-
 	//login
-	http.HandleFunc("/login", usercontroller.Login)
+	http.Handle("/login", helmet.Default().Secure(middleware.XssMiddleware(http.HandlerFunc(usercontroller.Login))))
 
-	//register
 	http.Handle("/register-seller", helmet.Default().Secure(middleware.XssMiddleware(http.HandlerFunc(usercontroller.SellerRegister))))
 	http.Handle("/register-customer", helmet.Default().Secure(middleware.XssMiddleware(http.HandlerFunc(usercontroller.CustomerRegister))))
 
-	//update
 	http.Handle("/update-seller", helmet.Default().Secure(middleware.XssMiddleware(http.HandlerFunc(usercontroller.Update_seller))))
 	http.Handle("/update-customer", helmet.Default().Secure(middleware.XssMiddleware(http.HandlerFunc(usercontroller.Update_customer))))
 
-	//get
 	http.Handle("/users", helmet.Default().Secure(middleware.XssMiddleware(http.HandlerFunc(usercontroller.Data_users))))
 	http.Handle("/user/", helmet.Default().Secure(middleware.XssMiddleware(http.HandlerFunc(usercontroller.Data_user))))
 

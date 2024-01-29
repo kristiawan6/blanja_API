@@ -7,6 +7,7 @@ import (
 	ordermodel "blanja_api/src/models/OrderModel"
 	paymentmodel "blanja_api/src/models/PaymentModel"
 	productmodel "blanja_api/src/models/ProductModel"
+	usermodel "blanja_api/src/models/UserModel"
 )
 
 func Migration() {
@@ -15,4 +16,5 @@ func Migration() {
 	config.DB.AutoMigrate(&cartmodel.Cart{})
 	config.DB.AutoMigrate(&ordermodel.Order{})
 	config.DB.AutoMigrate(&paymentmodel.Payment{})
+	config.DB.AutoMigrate(&usermodel.User{})
 }

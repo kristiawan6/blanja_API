@@ -37,7 +37,7 @@ func Data_payments(w http.ResponseWriter, r *http.Request) {
 		models.PostPayment(&item)
 		w.WriteHeader(http.StatusCreated)
 		msg := map[string]string{
-			"Message": "Your Payment has been sucessful",
+			"Message": "Your Payment method has been added",
 		}
 		res, err := json.Marshal(msg)
 		if err != nil {
