@@ -30,5 +30,3 @@ This is a Restful API repository for Blanja. This Restful API is built using Gol
 Contributors names and contact info:
 
 1. William Kristiawan
-
-- [Linkedin](https://www.linkedin.com/in/rizkiromadhonanasution)
